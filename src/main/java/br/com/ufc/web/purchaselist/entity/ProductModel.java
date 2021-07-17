@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 import com.sun.istack.NotNull;
 
 @Entity
-public class Product {
+public class ProductModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,16 +31,16 @@ public class Product {
 	
 	@NotNull
 	@OneToOne
-	private Marketplace marketplace;
+	private MarketplaceModel marketplace;
 	
 	@Deprecated
-	public Product() {
+	public ProductModel() {
 		super();
 	}
 
-	public Product(@NotBlank(message = "Name needed of repassed") String name,
+	public ProductModel(@NotBlank(message = "Name needed of repassed") String name,
 			@NotBlank(message = "Description needed of repassed") @Min(20) @Max(250) String description,
-			@NotBlank(message = "Price needed of repassed") double price, Marketplace marketplace) {
+			@NotBlank(message = "Price needed of repassed") double price, MarketplaceModel marketplace) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -64,7 +64,7 @@ public class Product {
 		return price;
 	}
 
-	public Marketplace getMarketplace() {
+	public MarketplaceModel getMarketplace() {
 		return marketplace;
 	}
 

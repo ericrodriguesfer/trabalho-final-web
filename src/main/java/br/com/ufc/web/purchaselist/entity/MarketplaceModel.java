@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 import com.sun.istack.NotNull;
 
 @Entity
-public class Marketplace {
+public class MarketplaceModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,18 +25,18 @@ public class Marketplace {
 
 	@NotNull
 	@ManyToOne
-	private User user;
+	private UserModel user;
 
 	@NotNull
 	@OneToOne
-	private Adress adress;
+	private AdressModel adress;
 
 	@Deprecated
-	public Marketplace() {
+	public MarketplaceModel() {
 		super();
 	}
 
-	public Marketplace(@NotBlank(message = "Name needed of repassed") String name, User user, Adress adress) {
+	public MarketplaceModel(@NotBlank(message = "Name needed of repassed") String name, UserModel user, AdressModel adress) {
 		super();
 		this.name = name;
 		this.quantityProducts = 0;
@@ -56,11 +56,11 @@ public class Marketplace {
 		return quantityProducts;
 	}
 
-	public User getUser() {
+	public UserModel getUser() {
 		return user;
 	}
 
-	public Adress getAdress() {
+	public AdressModel getAdress() {
 		return adress;
 	}
 

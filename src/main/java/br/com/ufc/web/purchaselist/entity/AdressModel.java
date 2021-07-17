@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-public class Adress {
+public class AdressModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,11 +26,11 @@ public class Adress {
 	private String city;
 	
 	@Deprecated
-	public Adress() {
+	public AdressModel() {
 		super();
 	}
 
-	public Adress(@NotBlank(message = "Street of adress needed of repassed") String street,
+	public AdressModel(@NotBlank(message = "Street of adress needed of repassed") String street,
 			@NotBlank(message = "Number of adress needed of repassed") long number,
 			@NotBlank(message = "Neighborhood of adress needed of repassed") String neighborhood,
 			@NotBlank(message = "City of adress needed of repassed") String city) {
