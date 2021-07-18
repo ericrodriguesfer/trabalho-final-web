@@ -8,7 +8,7 @@ import br.com.ufc.web.purchaselist.entity.UserModel;
 
 public interface UserRepository extends JpaRepository<UserModel, Long> {
 	
-	Optional<UserModel>  findByEmail(String email);
+	Optional<UserModel> findByEmail(String email);
 	boolean existsByEmail(String email);
 	
 }
