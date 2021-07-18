@@ -1,20 +1,13 @@
-package br.com.ufc.web.purchaselist.entity;
+package br.com.ufc.web.purchaselist.model.request;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
 import com.sun.istack.NotNull;
 
-@Entity
-public class AdressModel {
+import br.com.ufc.web.purchaselist.entity.AdressModel;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	
+public class AdressRequestModel {
+
 	@NotBlank(message = "Street of adress needed of repassed")
 	private String street;
 	
@@ -28,11 +21,11 @@ public class AdressModel {
 	private String city;
 	
 	@Deprecated
-	public AdressModel() {
+	public AdressRequestModel() {
 		super();
 	}
 
-	public AdressModel(@NotBlank(message = "Street of adress needed of repassed") String street,
+	public AdressRequestModel(@NotBlank(message = "Street of adress needed of repassed") String street,
 			@NotNull() long number,
 			@NotBlank(message = "Neighborhood of adress needed of repassed") String neighborhood,
 			@NotBlank(message = "City of adress needed of repassed") String city) {
@@ -41,10 +34,6 @@ public class AdressModel {
 		this.number = number;
 		this.neighborhood = neighborhood;
 		this.city = city;
-	}
-
-	public long getId() {
-		return id;
 	}
 
 	public String getStreet() {
@@ -62,26 +51,14 @@ public class AdressModel {
 	public String getCity() {
 		return city;
 	}
-
-	public void setStreet(String street) {
-		this.street = street;
-	}
-
-	public void setNumber(long number) {
-		this.number = number;
-	}
-
-	public void setNeighborhood(String neighborhood) {
-		this.neighborhood = neighborhood;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
+	
+	public AdressModel toModel() {
+		return new AdressModel(this.getStreet(), this.getNumber(), this.getNeighborhood(), this.getCity());
 	}
 
 	@Override
 	public String toString() {
-		return "Adress [id=" + id + ", street=" + street + ", number=" + number + ", neighborhood=" + neighborhood
+		return "AdressRequestModel [street=" + street + ", number=" + number + ", neighborhood=" + neighborhood
 				+ ", city=" + city + "]";
 	}
 	
