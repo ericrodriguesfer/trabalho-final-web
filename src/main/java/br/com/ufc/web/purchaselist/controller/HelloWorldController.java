@@ -10,8 +10,9 @@ import br.com.ufc.web.purchaselist.model.model.HelloWorld;
 public class HelloWorldController {
 	
 	@GetMapping(value = "/")
-	public ResponseEntity<HelloWorld> showAPI() {
+	public ResponseEntity<HelloWorld> showDefaultRoute() {
 		HelloWorld messageDefaultReturnAPI = new HelloWorld("This is route default of API, if you want to know more about the project, visit the link below.", "https://github.com/ericrodriguesfer");
+		
 		return ResponseEntity.ok().body(messageDefaultReturnAPI);
 	} 
 	
