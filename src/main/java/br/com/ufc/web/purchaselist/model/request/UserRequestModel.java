@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+import br.com.ufc.web.purchaselist.config.PasswordCryptograf;
 import br.com.ufc.web.purchaselist.entity.UserModel;
 
 public class UserRequestModel {
@@ -46,7 +47,7 @@ public class UserRequestModel {
 	}
 
 	public UserModel toModel() {
-		return new UserModel(this.getName(), this.getEmail(), this.getPassword());
+		return new UserModel(this.getName(), this.getEmail(), PasswordCryptograf.endocePassword(this.getPassword()));
 	}
 
 	@Override
