@@ -95,4 +95,5 @@ public class AdressController {
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fail in deleted adress");
 	}
+	
 }
