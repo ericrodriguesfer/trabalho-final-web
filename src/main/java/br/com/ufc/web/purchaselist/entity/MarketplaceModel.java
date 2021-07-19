@@ -20,7 +20,7 @@ public class MarketplaceModel {
 	@NotBlank(message = "Name needed of repassed")
 	private String name;
 
-	@NotBlank(message = "Quantity products needed of repassed")
+	@NotNull
 	private long quantityProducts;
 
 	@NotNull
@@ -62,6 +62,10 @@ public class MarketplaceModel {
 
 	public AdressModel getAdress() {
 		return adress;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override
