@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ufc.web.purchaselist.entity.AdressModel;
 import br.com.ufc.web.purchaselist.entity.MarketplaceModel;
+import br.com.ufc.web.purchaselist.entity.ProductModel;
 import br.com.ufc.web.purchaselist.entity.UserModel;
 import br.com.ufc.web.purchaselist.model.request.MarketplaceRequestModel;
 import br.com.ufc.web.purchaselist.model.request.MarketplaceUpdateRequestModel;
@@ -28,6 +29,7 @@ import br.com.ufc.web.purchaselist.model.response.MarketplaceResponseModel;
 import br.com.ufc.web.purchaselist.model.response.UserSimplifiedResponseModel;
 import br.com.ufc.web.purchaselist.service.implementation.AdressServiceImplementation;
 import br.com.ufc.web.purchaselist.service.implementation.MarketplaceServiceImplementation;
+import br.com.ufc.web.purchaselist.service.implementation.ProductServiceImplementation;
 import br.com.ufc.web.purchaselist.service.implementation.UserServiceImplementation;
 
 @RestController
@@ -41,6 +43,9 @@ public class  MarketplaceController {
 	
 	@Autowired
 	private AdressServiceImplementation adressService;
+	
+	@Autowired
+	private ProductServiceImplementation productService;
 	
 	@PostMapping(value = "/marketplace")
 	@Transactional
@@ -111,6 +116,19 @@ public class  MarketplaceController {
 	@Transactional
 	public ResponseEntity<Object> deleteMarketplace(@NotBlank @PathVariable long id) {
 		MarketplaceModel marketplace = this.marketplaceService.findById(id);
+		List<ProductModel> products = this.productService.findAll();
+		List<ProductModel> productsDelete = new ArrayList<ProductModel>();
+		
+		for (ProductModel product : products) {
+			if (product.getMarketplace().getId() == id) {
+				productsDelete.add(product);
+			}
+		}
+		
+		for (ProductModel product : productsDelete) {
+			this.productService.delete(product.getId());
+		}
+		
 		boolean response = this.marketplaceService.delete(id);
 		
 		if (response) {

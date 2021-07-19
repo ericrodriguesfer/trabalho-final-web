@@ -5,9 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import com.sun.istack.NotNull;
 
@@ -22,11 +21,10 @@ public class ProductModel {
 	private String name;
 	
 	@NotBlank(message = "Description needed of repassed")
-	@Min(value = 20)
-	@Max(value = 250)
+	@Size(min = 20, max = 250)
 	private String description;
 	
-	@NotBlank(message = "Price needed of repassed")
+	@NotNull
 	private double price;
 	
 	@NotNull
@@ -39,8 +37,8 @@ public class ProductModel {
 	}
 
 	public ProductModel(@NotBlank(message = "Name needed of repassed") String name,
-			@NotBlank(message = "Description needed of repassed") @Min(20) @Max(250) String description,
-			@NotBlank(message = "Price needed of repassed") double price, MarketplaceModel marketplace) {
+			@NotBlank(message = "Description needed of repassed") @Size(min = 20, max = 250) String description,
+			@NotNull double price, MarketplaceModel marketplace) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -66,6 +64,18 @@ public class ProductModel {
 
 	public MarketplaceModel getMarketplace() {
 		return marketplace;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
 	}
 
 	@Override
