@@ -73,6 +73,10 @@ public class AdressController {
 	public ResponseEntity<Object> updateAdress(@NotBlank @PathVariable long id, @RequestBody AdressRequestModel adressUpdate) {
 		AdressModel adress = this.adressService.findById(id);
 		
+		if (adress == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Adress not found for update");
+		}
+		
 		adress.setStreet(adressUpdate.getStreet());
 		adress.setNumber(adressUpdate.getNumber());
 		adress.setNeighborhood(adressUpdate.getNeighborhood());
