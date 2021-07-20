@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.ufc.web.purchaselist.entity.ProductModel;
+import br.com.ufc.web.purchaselist.entity.ProductEntity;
 import br.com.ufc.web.purchaselist.repository.ProductRepository;
 import br.com.ufc.web.purchaselist.service.ProductService;
 
@@ -17,18 +17,18 @@ public class ProductServiceImplementation implements ProductService {
 	private ProductRepository productRepository;
 
 	@Override
-	public ProductModel save(ProductModel product) {
+	public ProductEntity save(ProductEntity product) {
 		return this.productRepository.save(product);
 	}
 
 	@Override
-	public List<ProductModel> findAll() {
+	public List<ProductEntity> findAll() {
 		return this.productRepository.findAll();
 	}
 
 	@Override
-	public ProductModel findById(long id) {
-		Optional<ProductModel> product = this.productRepository.findById(id);
+	public ProductEntity findById(long id) {
+		Optional<ProductEntity> product = this.productRepository.findById(id);
 		
 		if (product.isEmpty()) {
 			return null;
@@ -38,8 +38,8 @@ public class ProductServiceImplementation implements ProductService {
 	}
 
 	@Override
-	public ProductModel update(ProductModel product) {
-		ProductModel productUpdate = this.findById(product.getId());
+	public ProductEntity update(ProductEntity product) {
+		ProductEntity productUpdate = this.findById(product.getId());
 		
 		productUpdate.setName(product.getName());
 		productUpdate.setDescription(product.getDescription());
@@ -52,7 +52,7 @@ public class ProductServiceImplementation implements ProductService {
 
 	@Override
 	public boolean delete(long id) {
-		ProductModel product = this.findById(id);
+		ProductEntity product = this.findById(id);
 		
 		if (product == null) {
 			return false;

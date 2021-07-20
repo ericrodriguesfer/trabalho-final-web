@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ufc.web.purchaselist.entity.MarketplaceModel;
-import br.com.ufc.web.purchaselist.entity.ProductModel;
+import br.com.ufc.web.purchaselist.entity.MarketplaceEntity;
+import br.com.ufc.web.purchaselist.entity.ProductEntity;
 import br.com.ufc.web.purchaselist.model.request.ProductRequestModel;
 import br.com.ufc.web.purchaselist.model.request.ProductUpdateRequestModel;
 import br.com.ufc.web.purchaselist.model.response.MarketplaceSimplifiedResponseModel;
@@ -39,13 +39,13 @@ public class ProductController {
 	@PostMapping(value = "/product")
 	@Transactional
 	public ResponseEntity<Object> addProduct(@RequestBody @Valid ProductRequestModel productRegister) {
-		MarketplaceModel marketplace = this.marketplaceService.findById(productRegister.getIdMarketplace());
+		MarketplaceEntity marketplace = this.marketplaceService.findById(productRegister.getIdMarketplace());
 		
 		if (marketplace == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Marketplace this product is invalid");
 		}
 		
-		ProductModel product = productRegister.toModel(marketplace);
+		ProductEntity product = productRegister.toModel(marketplace);
 		this.productService.save(product);
 		
 		ProductResponseModel productResponse = new ProductResponseModel(product.getId(), product.getName(), product.getDescription(), product.getPrice(), new MarketplaceSimplifiedResponseModel(product.getMarketplace().getName()));
@@ -56,13 +56,13 @@ public class ProductController {
 	@GetMapping(value = "/product")
 	public ResponseEntity<Object> listAllProducts() {
 		List<ProductResponseModel> productsResponse = new ArrayList<ProductResponseModel>();
-		List<ProductModel> products = this.productService.findAll();
+		List<ProductEntity> products = this.productService.findAll();
 		
 		if (products.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not exists products registered");
 		}
 		
-		for (ProductModel product : products) {
+		for (ProductEntity product : products) {
 			productsResponse.add(new ProductResponseModel(product.getId(), product.getName(), product.getDescription(), product.getPrice(), new MarketplaceSimplifiedResponseModel(product.getMarketplace().getName())));
 		}
 		
@@ -71,7 +71,7 @@ public class ProductController {
 	
 	@GetMapping(value = "/product/{id}")
 	public ResponseEntity<Object> listProductById(@NotBlank @PathVariable long id) {
-		ProductModel product = this.productService.findById(id);
+		ProductEntity product = this.productService.findById(id);
 		
 		if (product == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found by this id repassed");
@@ -85,7 +85,7 @@ public class ProductController {
 	@PutMapping(value = "/product/{id}")
 	@Transactional
 	public ResponseEntity<Object> updateProduct(@NotBlank @PathVariable long id, @RequestBody @Valid ProductUpdateRequestModel productUpdate) {
-		ProductModel product = this.productService.findById(id);
+		ProductEntity product = this.productService.findById(id);
 		
 		if (product == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found for update");
@@ -95,7 +95,7 @@ public class ProductController {
 		product.setDescription(productUpdate.getDescription());
 		product.setPrice(productUpdate.getPrice());
 		
-		ProductModel productUpdated = this.productService.update(product);
+		ProductEntity productUpdated = this.productService.update(product);
 		ProductResponseModel productResponse = new ProductResponseModel(productUpdated.getId(), productUpdated.getName(), productUpdated.getDescription(), productUpdated.getPrice(), new MarketplaceSimplifiedResponseModel(productUpdated.getMarketplace().getName()));
 		
 		return ResponseEntity.status(HttpStatus.OK).body(productResponse);

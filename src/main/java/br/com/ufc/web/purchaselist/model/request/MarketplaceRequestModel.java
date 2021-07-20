@@ -4,8 +4,8 @@ import javax.validation.constraints.NotBlank;
 
 import com.sun.istack.NotNull;
 
-import br.com.ufc.web.purchaselist.entity.AdressModel;
-import br.com.ufc.web.purchaselist.entity.MarketplaceModel;
+import br.com.ufc.web.purchaselist.entity.AdressEntity;
+import br.com.ufc.web.purchaselist.entity.MarketplaceEntity;
 //import br.com.ufc.web.purchaselist.entity.UserModel;
 
 public class MarketplaceRequestModel {
@@ -44,8 +44,8 @@ public class MarketplaceRequestModel {
 		return idAdress;
 	}
 	
-	public MarketplaceModel toModel(AdressModel adress) {
-		return new MarketplaceModel(this.getName(), adress);
+	public MarketplaceEntity toModel(AdressEntity adress) {
+		return new MarketplaceEntity(this.getName(), adress);
 	}
 
 	@Override

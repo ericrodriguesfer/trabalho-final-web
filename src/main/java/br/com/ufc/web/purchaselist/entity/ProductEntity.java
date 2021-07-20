@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 import com.sun.istack.NotNull;
 
 @Entity
-public class ProductModel {
+public class ProductEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,16 +29,16 @@ public class ProductModel {
 	
 	@NotNull
 	@OneToOne
-	private MarketplaceModel marketplace;
+	private MarketplaceEntity marketplace;
 	
 	@Deprecated
-	public ProductModel() {
+	public ProductEntity() {
 		super();
 	}
 
-	public ProductModel(@NotBlank(message = "Name needed of repassed") String name,
+	public ProductEntity(@NotBlank(message = "Name needed of repassed") String name,
 			@NotBlank(message = "Description needed of repassed") @Size(min = 20, max = 250) String description,
-			@NotNull double price, MarketplaceModel marketplace) {
+			@NotNull double price, MarketplaceEntity marketplace) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -62,7 +62,7 @@ public class ProductModel {
 		return price;
 	}
 
-	public MarketplaceModel getMarketplace() {
+	public MarketplaceEntity getMarketplace() {
 		return marketplace;
 	}
 

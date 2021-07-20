@@ -2,14 +2,14 @@ package br.com.ufc.web.purchaselist.service;
 
 import java.util.List;
 
-import br.com.ufc.web.purchaselist.entity.MarketplaceModel;
+import br.com.ufc.web.purchaselist.entity.MarketplaceEntity;
 
 public interface MarketplaceService {
 
-	MarketplaceModel save(MarketplaceModel marketplace);
-	List<MarketplaceModel> findAll();
-	MarketplaceModel findById(long id);
-	MarketplaceModel update(MarketplaceModel marketplace);
+	MarketplaceEntity save(MarketplaceEntity marketplace);
+	List<MarketplaceEntity> findAll();
+	MarketplaceEntity findById(long id);
+	MarketplaceEntity update(MarketplaceEntity marketplace);
 	boolean delete(long id);
 	
 }

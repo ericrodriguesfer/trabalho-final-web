@@ -5,8 +5,8 @@ import javax.validation.constraints.Size;
 
 import com.sun.istack.NotNull;
 
-import br.com.ufc.web.purchaselist.entity.MarketplaceModel;
-import br.com.ufc.web.purchaselist.entity.ProductModel;
+import br.com.ufc.web.purchaselist.entity.MarketplaceEntity;
+import br.com.ufc.web.purchaselist.entity.ProductEntity;
 
 public class ProductRequestModel {
 	
@@ -54,8 +54,8 @@ public class ProductRequestModel {
 		return idMarketplace;
 	}
 	
-	public ProductModel toModel(MarketplaceModel marketplace) {
-		return new ProductModel(this.getName(), this.getDescription(), this.getPrice(), marketplace);
+	public ProductEntity toModel(MarketplaceEntity marketplace) {
+		return new ProductEntity(this.getName(), this.getDescription(), this.getPrice(), marketplace);
 	}
 
 	@Override
