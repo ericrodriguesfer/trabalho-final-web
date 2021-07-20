@@ -91,6 +91,10 @@ public class UserController {
 	public ResponseEntity<Object> updateUser(@NotBlank @PathVariable long id, @RequestBody @Valid UserUpdateRequestModel userUpdate) {
 		UserModel user = this.userService.findById(id);
 		
+		if (user == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found for update");
+		}
+		
 		user.setName(userUpdate.getName());
 		user.setEmail(userUpdate.getEmail());
 		
