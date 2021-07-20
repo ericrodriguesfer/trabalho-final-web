@@ -4,11 +4,11 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.ufc.web.purchaselist.entity.UserModel;
+import br.com.ufc.web.purchaselist.entity.UserEntity;
 
-public interface UserRepository extends JpaRepository<UserModel, Long> {
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
 	
-	Optional<UserModel> findByEmail(String email);
+	Optional<UserEntity> findByEmail(String email);
 	boolean existsByEmail(String email);
 	
 }

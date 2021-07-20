@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ufc.web.purchaselist.entity.UserModel;
+import br.com.ufc.web.purchaselist.entity.UserEntity;
 import br.com.ufc.web.purchaselist.model.request.UserRequestModel;
 import br.com.ufc.web.purchaselist.model.request.UserUpdateRequestModel;
 import br.com.ufc.web.purchaselist.model.response.UserResponseModel;
@@ -37,7 +37,7 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Exists other account with this email");
 		}
 		
-		UserModel user = userRegister.toModel();
+		UserEntity user = userRegister.toModel();
 		this.userService.save(user);
 		UserResponseModel userResponse = new UserResponseModel(user.getId(), user.getName(), user.getEmail(), user.getPassword());
 		
@@ -47,13 +47,13 @@ public class UserController {
 	@GetMapping(value = "/user")
 	public ResponseEntity<Object> listAllUsers() {
 		List<UserResponseModel> usersResponse = new ArrayList<UserResponseModel>();
-		List<UserModel> users = this.userService.findAll();
+		List<UserEntity> users = this.userService.findAll();
 		
 		if (users.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not exists users registered");
 		}
 		
-		for (UserModel user : users) {
+		for (UserEntity user : users) {
 			usersResponse.add(new UserResponseModel(user.getId(), user.getName(), user.getEmail(), user.getPassword()));
 		}
 		
@@ -62,7 +62,7 @@ public class UserController {
 	
 	@GetMapping(value = "/user/{id}")
 	public ResponseEntity<Object> listUserById(@NotBlank @PathVariable long id) {
-		UserModel user = this.userService.findById(id);
+		UserEntity user = this.userService.findById(id);
 		
 		if (user == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found by this id repassed");
@@ -75,7 +75,7 @@ public class UserController {
 	
 	@GetMapping(value = "/user/email/{email}")
 	public ResponseEntity<Object> listUserByEmail(@NotBlank @PathVariable String email) {
-		UserModel user = this.userService.findByEmail(email);
+		UserEntity user = this.userService.findByEmail(email);
 		
 		if (user == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found by this e-mail repassed");
@@ -89,7 +89,7 @@ public class UserController {
 	@PutMapping(value = "/user/{id}")
 	@Transactional
 	public ResponseEntity<Object> updateUser(@NotBlank @PathVariable long id, @RequestBody @Valid UserUpdateRequestModel userUpdate) {
-		UserModel user = this.userService.findById(id);
+		UserEntity user = this.userService.findById(id);
 		
 		if (user == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found for update");
@@ -98,7 +98,7 @@ public class UserController {
 		user.setName(userUpdate.getName());
 		user.setEmail(userUpdate.getEmail());
 		
-		UserModel userUpdated = this.userService.update(user);
+		UserEntity userUpdated = this.userService.update(user);
 		UserResponseModel userResponse = new UserResponseModel(userUpdated.getId(), userUpdated.getName(), userUpdated.getEmail(), userUpdated.getPassword());
 		
 		return ResponseEntity.status(HttpStatus.OK).body(userResponse);

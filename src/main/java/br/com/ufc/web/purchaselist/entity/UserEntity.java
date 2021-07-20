@@ -9,7 +9,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-public class UserModel {
+public class UserEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,11 +27,11 @@ public class UserModel {
 	private String password;
 	
 	@Deprecated
-	public UserModel() {
+	public UserEntity() {
 		super();
 	}
 
-	public UserModel(@NotBlank(message = "Name needed of repassed") String name,
+	public UserEntity(@NotBlank(message = "Name needed of repassed") String name,
 			@NotBlank(message = "E-mail needed of repassed") @Email(message = "Email not format valid") String email,
 			@NotBlank(message = "Password needed of repassed") String password) {
 		super();

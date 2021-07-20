@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ufc.web.purchaselist.entity.AdressModel;
+import br.com.ufc.web.purchaselist.entity.AdressEntity;
 import br.com.ufc.web.purchaselist.model.request.AdressRequestModel;
 import br.com.ufc.web.purchaselist.model.response.AdressResponseModel;
 import br.com.ufc.web.purchaselist.service.implementation.AdressServiceImplementation;
@@ -32,7 +32,7 @@ public class AdressController {
 	@PostMapping(value = "/adress")
 	@Transactional
 	public ResponseEntity<Object> addAdress(@RequestBody @Valid AdressRequestModel adressRegister) {
-		AdressModel adress = adressRegister.toModel();
+		AdressEntity adress = adressRegister.toModel();
 		this.adressService.save(adress);
 		AdressResponseModel adressResponse = new AdressResponseModel(adress.getId(), adress.getStreet(), adress.getNumber(), adress.getNeighborhood(), adress.getCity());
 		
@@ -42,13 +42,13 @@ public class AdressController {
 	@GetMapping(value = "/adress")
 	public ResponseEntity<Object> listAllAdress() {
 		List<AdressResponseModel> adressResponse = new ArrayList<AdressResponseModel>();
-		List<AdressModel> adresses = this.adressService.findAll();
+		List<AdressEntity> adresses = this.adressService.findAll();
 		
 		if (adresses.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not exists adresses registered");
 		}
 		
-		for (AdressModel adress : adresses) {
+		for (AdressEntity adress : adresses) {
 			adressResponse.add(new AdressResponseModel(adress.getId(), adress.getStreet(), adress.getNumber(), adress.getNeighborhood(), adress.getCity()));
 		}
 		
@@ -57,7 +57,7 @@ public class AdressController {
 	
 	@GetMapping(value = "/adress/{id}")
 	public ResponseEntity<Object> listAdressById(@NotBlank @PathVariable long id) {
-		AdressModel adress = this.adressService.findById(id);
+		AdressEntity adress = this.adressService.findById(id);
 		
 		if (adress == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Adress not found by this id repassed");
@@ -71,7 +71,7 @@ public class AdressController {
 	@PutMapping(value = "/adress/{id}")
 	@Transactional
 	public ResponseEntity<Object> updateAdress(@NotBlank @PathVariable long id, @RequestBody @Valid AdressRequestModel adressUpdate) {
-		AdressModel adress = this.adressService.findById(id);
+		AdressEntity adress = this.adressService.findById(id);
 		
 		if (adress == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Adress not found for update");
@@ -82,7 +82,7 @@ public class AdressController {
 		adress.setNeighborhood(adressUpdate.getNeighborhood());
 		adress.setCity(adressUpdate.getCity());
 		
-		AdressModel adressUpdated = this.adressService.update(adress);
+		AdressEntity adressUpdated = this.adressService.update(adress);
 		AdressResponseModel adressResponse = new AdressResponseModel(adressUpdated.getId(), adressUpdated.getStreet(), adressUpdated.getNumber(), adressUpdated.getNeighborhood(), adressUpdated.getCity());
 		
 		return ResponseEntity.status(HttpStatus.OK).body(adressResponse);

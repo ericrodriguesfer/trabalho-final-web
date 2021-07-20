@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.ufc.web.purchaselist.entity.AdressModel;
+import br.com.ufc.web.purchaselist.entity.AdressEntity;
 import br.com.ufc.web.purchaselist.repository.AdressRepository;
 import br.com.ufc.web.purchaselist.service.AdressService;
 
@@ -17,18 +17,18 @@ public class AdressServiceImplementation implements AdressService {
 	private AdressRepository adressRepository;
 	
 	@Override
-	public AdressModel save(AdressModel adress) {
+	public AdressEntity save(AdressEntity adress) {
 		return this.adressRepository.save(adress);
 	}
 
 	@Override
-	public List<AdressModel> findAll() {
+	public List<AdressEntity> findAll() {
 		return this.adressRepository.findAll();
 	}
 
 	@Override
-	public AdressModel findById(long id) {
-		Optional<AdressModel> adress = this.adressRepository.findById(id);
+	public AdressEntity findById(long id) {
+		Optional<AdressEntity> adress = this.adressRepository.findById(id);
 		
 		if (adress.isEmpty()) {
 			return null;
@@ -38,8 +38,8 @@ public class AdressServiceImplementation implements AdressService {
 	}
 
 	@Override
-	public AdressModel update(AdressModel adress) {
-		AdressModel adressUpdate = this.findById(adress.getId());
+	public AdressEntity update(AdressEntity adress) {
+		AdressEntity adressUpdate = this.findById(adress.getId());
 		
 		adressUpdate.setStreet(adress.getStreet());
 		adressUpdate.setNumber(adress.getNumber());
@@ -58,7 +58,7 @@ public class AdressServiceImplementation implements AdressService {
 
 	@Override
 	public boolean delete(long id) {
-		AdressModel adress = this.findById(id);
+		AdressEntity adress = this.findById(id);
 		
 		if (adress == null) {
 			return false;

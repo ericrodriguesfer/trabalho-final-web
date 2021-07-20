@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.ufc.web.purchaselist.entity.MarketplaceModel;
+import br.com.ufc.web.purchaselist.entity.MarketplaceEntity;
 import br.com.ufc.web.purchaselist.repository.MarketplaceRepository;
 import br.com.ufc.web.purchaselist.service.MarketplaceService;
 
@@ -17,18 +17,18 @@ public class MarketplaceServiceImplementation implements MarketplaceService{
 	private MarketplaceRepository marketplaceRepository;
 	
 	@Override
-	public MarketplaceModel save(MarketplaceModel marketplace) {
+	public MarketplaceEntity save(MarketplaceEntity marketplace) {
 		return this.marketplaceRepository.save(marketplace);
 	}
 
 	@Override
-	public List<MarketplaceModel> findAll() {
+	public List<MarketplaceEntity> findAll() {
 		return this.marketplaceRepository.findAll();
 	}
 
 	@Override
-	public MarketplaceModel findById(long id) {
-		Optional<MarketplaceModel> marketplace = this.marketplaceRepository.findById(id);
+	public MarketplaceEntity findById(long id) {
+		Optional<MarketplaceEntity> marketplace = this.marketplaceRepository.findById(id);
 		
 		if (marketplace.isEmpty()) {
 			return null;
@@ -38,8 +38,8 @@ public class MarketplaceServiceImplementation implements MarketplaceService{
 	}
 
 	@Override
-	public MarketplaceModel update(MarketplaceModel marketplace) {
-		MarketplaceModel marketplaceUpdate = this.findById(marketplace.getId());
+	public MarketplaceEntity update(MarketplaceEntity marketplace) {
+		MarketplaceEntity marketplaceUpdate = this.findById(marketplace.getId());
 		
 		marketplaceUpdate.setName(marketplace.getName());
 		
@@ -50,7 +50,7 @@ public class MarketplaceServiceImplementation implements MarketplaceService{
 
 	@Override
 	public boolean delete(long id) {
-		MarketplaceModel marketplace = this.findById(id);
+		MarketplaceEntity marketplace = this.findById(id);
 		
 		if (marketplace == null) {
 			return false;
