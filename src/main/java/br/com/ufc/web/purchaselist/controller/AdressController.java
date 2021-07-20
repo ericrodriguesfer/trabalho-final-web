@@ -70,7 +70,7 @@ public class AdressController {
 	
 	@PutMapping(value = "/adress/{id}")
 	@Transactional
-	public ResponseEntity<Object> updateAdress(@NotBlank @PathVariable long id, @RequestBody AdressRequestModel adressUpdate) {
+	public ResponseEntity<Object> updateAdress(@NotBlank @PathVariable long id, @RequestBody @Valid AdressRequestModel adressUpdate) {
 		AdressModel adress = this.adressService.findById(id);
 		
 		if (adress == null) {
