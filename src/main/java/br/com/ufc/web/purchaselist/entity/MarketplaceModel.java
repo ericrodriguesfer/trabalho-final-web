@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+//import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 
@@ -23,9 +23,9 @@ public class MarketplaceModel {
 	@NotNull
 	private long quantityProducts;
 
-	@NotNull
-	@ManyToOne
-	private UserModel user;
+//	@NotNull
+//	@ManyToOne
+//	private UserModel user;
 
 	@NotNull
 	@OneToOne
@@ -36,11 +36,11 @@ public class MarketplaceModel {
 		super();
 	}
 
-	public MarketplaceModel(@NotBlank(message = "Name needed of repassed") String name, UserModel user, AdressModel adress) {
+	public MarketplaceModel(@NotBlank(message = "Name needed of repassed") String name, AdressModel adress) {
 		super();
 		this.name = name;
 		this.quantityProducts = 0;
-		this.user = user;
+//		this.user = user;
 		this.adress = adress;
 	}
 
@@ -56,9 +56,9 @@ public class MarketplaceModel {
 		return quantityProducts;
 	}
 
-	public UserModel getUser() {
-		return user;
-	}
+//	public UserModel getUser() {
+//		return user;
+//	}
 
 	public AdressModel getAdress() {
 		return adress;
@@ -70,8 +70,7 @@ public class MarketplaceModel {
 
 	@Override
 	public String toString() {
-		return "Marketplace [id=" + id + ", name=" + name + ", quantityProducts=" + quantityProducts + ", user=" + user
-				+ ", adress=" + adress + "]";
+		return "Marketplace [id=" + id + ", name=" + name + ", quantityProducts=" + quantityProducts + ", adress=" + adress + "]";
 	}
 
 }
