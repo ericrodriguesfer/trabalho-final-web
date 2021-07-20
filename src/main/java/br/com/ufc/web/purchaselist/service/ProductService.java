@@ -2,14 +2,14 @@ package br.com.ufc.web.purchaselist.service;
 
 import java.util.List;
 
-import br.com.ufc.web.purchaselist.entity.ProductModel;
+import br.com.ufc.web.purchaselist.entity.ProductEntity;
 
 public interface ProductService {
 
-	ProductModel save(ProductModel product);
-	List<ProductModel> findAll();
-	ProductModel findById(long id);
-	ProductModel update(ProductModel product);
+	ProductEntity save(ProductEntity product);
+	List<ProductEntity> findAll();
+	ProductEntity findById(long id);
+	ProductEntity update(ProductEntity product);
 	boolean delete(long id);
 	
 }

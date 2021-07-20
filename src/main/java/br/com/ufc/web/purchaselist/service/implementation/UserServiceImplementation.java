@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.ufc.web.purchaselist.entity.UserModel;
+import br.com.ufc.web.purchaselist.entity.UserEntity;
 import br.com.ufc.web.purchaselist.repository.UserRepository;
 import br.com.ufc.web.purchaselist.service.UserService;
 
@@ -17,18 +17,18 @@ public class UserServiceImplementation implements UserService {
 	private UserRepository userRepository;
 
 	@Override
-	public UserModel save(UserModel user) {
+	public UserEntity save(UserEntity user) {
 		return this.userRepository.save(user);
 	}
 
 	@Override
-	public List<UserModel> findAll() {
+	public List<UserEntity> findAll() {
 		return this.userRepository.findAll();
 	}
 
 	@Override
-	public UserModel findById(long id) {
-		Optional<UserModel> user = this.userRepository.findById(id);
+	public UserEntity findById(long id) {
+		Optional<UserEntity> user = this.userRepository.findById(id);
 		
 		if (user.isEmpty()) {
 			return null;
@@ -38,8 +38,8 @@ public class UserServiceImplementation implements UserService {
 	}
 
 	@Override
-	public UserModel findByEmail(String email) {
-		Optional<UserModel> user = this.userRepository.findByEmail(email);
+	public UserEntity findByEmail(String email) {
+		Optional<UserEntity> user = this.userRepository.findByEmail(email);
 		
 		if (user.isEmpty()) {
 			return null;
@@ -49,8 +49,8 @@ public class UserServiceImplementation implements UserService {
 	}
 
 	@Override
-	public UserModel update(UserModel user) {
-		UserModel userUpdate = this.findById(user.getId());
+	public UserEntity update(UserEntity user) {
+		UserEntity userUpdate = this.findById(user.getId());
 		
 		userUpdate.setName(user.getName());
 		userUpdate.setEmail(user.getEmail());
@@ -62,7 +62,7 @@ public class UserServiceImplementation implements UserService {
 
 	@Override
 	public boolean delete(long id) {
-		UserModel user = this.findById(id);
+		UserEntity user = this.findById(id);
 		
 		if (user == null) {
 			return false;

@@ -4,7 +4,7 @@ import javax.validation.constraints.NotBlank;
 
 import com.sun.istack.NotNull;
 
-import br.com.ufc.web.purchaselist.entity.AdressModel;
+import br.com.ufc.web.purchaselist.entity.AdressEntity;
 
 public class AdressRequestModel {
 
@@ -52,8 +52,8 @@ public class AdressRequestModel {
 		return city;
 	}
 	
-	public AdressModel toModel() {
-		return new AdressModel(this.getStreet(), this.getNumber(), this.getNeighborhood(), this.getCity());
+	public AdressEntity toModel() {
+		return new AdressEntity(this.getStreet(), this.getNumber(), this.getNeighborhood(), this.getCity());
 	}
 
 	@Override

@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ufc.web.purchaselist.entity.AdressModel;
-import br.com.ufc.web.purchaselist.entity.MarketplaceModel;
-import br.com.ufc.web.purchaselist.entity.ProductModel;
+import br.com.ufc.web.purchaselist.entity.AdressEntity;
+import br.com.ufc.web.purchaselist.entity.MarketplaceEntity;
+import br.com.ufc.web.purchaselist.entity.ProductEntity;
 //import br.com.ufc.web.purchaselist.entity.UserModel;
 import br.com.ufc.web.purchaselist.model.request.MarketplaceRequestModel;
 import br.com.ufc.web.purchaselist.model.request.MarketplaceUpdateRequestModel;
@@ -56,13 +56,13 @@ public class  MarketplaceController {
 //			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User this marketplace is invalid");
 //		}
 		
-		AdressModel adress = this.adressService.findById(marketplaceRegister.getIdAdress());
+		AdressEntity adress = this.adressService.findById(marketplaceRegister.getIdAdress());
 		
 		if (adress == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Adress this marketplace is invalid");
 		}
 		
-		MarketplaceModel marketplace = marketplaceRegister.toModel(adress);
+		MarketplaceEntity marketplace = marketplaceRegister.toModel(adress);
 		this.marketplaceService.save(marketplace);
 		
 		MarketplaceResponseModel marketplaceResponse = new MarketplaceResponseModel(marketplace.getId(), marketplace.getName(), marketplace.getQuantityProducts(), new AdressResponseModel(adress.getId(), adress.getStreet(), adress.getNumber(), adress.getNeighborhood(), adress.getCity()));
@@ -73,13 +73,13 @@ public class  MarketplaceController {
 	@GetMapping(value = "/marketplace")
 	public ResponseEntity<Object> listAllMarketplaces() {
 		List<MarketplaceResponseModel> marketplacesResponse = new ArrayList<MarketplaceResponseModel>();
-		List<MarketplaceModel> marketplaces = this.marketplaceService.findAll();
+		List<MarketplaceEntity> marketplaces = this.marketplaceService.findAll();
 		
 		if (marketplaces.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not exists marketplaces registered");
 		}
 		
-		for (MarketplaceModel marketplace : marketplaces) {
+		for (MarketplaceEntity marketplace : marketplaces) {
 			marketplacesResponse.add(new MarketplaceResponseModel(marketplace.getId(), marketplace.getName(), marketplace.getQuantityProducts(), new AdressResponseModel(marketplace.getAdress().getId(), marketplace.getAdress().getStreet(), marketplace.getAdress().getNumber(), marketplace.getAdress().getNeighborhood(), marketplace.getAdress().getCity())));
 		}
 		
@@ -88,7 +88,7 @@ public class  MarketplaceController {
 	
 	@GetMapping(value = "/marketplace/{id}")
 	public ResponseEntity<Object> listMarketplaceById(@NotBlank @PathVariable long id) {
-		MarketplaceModel marketplace = this.marketplaceService.findById(id);
+		MarketplaceEntity marketplace = this.marketplaceService.findById(id);
 		
 		if (marketplace == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Marketplace not found by this id repassed");
@@ -102,7 +102,7 @@ public class  MarketplaceController {
 	@PutMapping(value = "/marketplace/{id}")
 	@Transactional
 	public ResponseEntity<Object> updateMarketplace(@NotBlank @PathVariable long id, @RequestBody @Valid MarketplaceUpdateRequestModel marketplaceUpdate) {
-		MarketplaceModel marketplace = this.marketplaceService.findById(id);
+		MarketplaceEntity marketplace = this.marketplaceService.findById(id);
 		
 		if (marketplace == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Marketplace not found for update");
@@ -110,7 +110,7 @@ public class  MarketplaceController {
 		
 		marketplace.setName(marketplaceUpdate.getName());
 		
-		MarketplaceModel marketplaceUpdated = this.marketplaceService.update(marketplace);
+		MarketplaceEntity marketplaceUpdated = this.marketplaceService.update(marketplace);
 		MarketplaceResponseModel marketplaceResponse = new MarketplaceResponseModel(marketplaceUpdated.getId(), marketplaceUpdated.getName(), marketplaceUpdated.getQuantityProducts(), new AdressResponseModel(marketplaceUpdated.getAdress().getId(), marketplaceUpdated.getAdress().getStreet(), marketplaceUpdated.getAdress().getNumber(), marketplaceUpdated.getAdress().getNeighborhood(), marketplaceUpdated.getAdress().getCity()));
 		
 		return ResponseEntity.status(HttpStatus.OK).body(marketplaceResponse);
@@ -119,17 +119,17 @@ public class  MarketplaceController {
 	@DeleteMapping(value = "/marketplace/{id}")
 	@Transactional
 	public ResponseEntity<Object> deleteMarketplace(@NotBlank @PathVariable long id) {
-		MarketplaceModel marketplace = this.marketplaceService.findById(id);
-		List<ProductModel> products = this.productService.findAll();
-		List<ProductModel> productsDelete = new ArrayList<ProductModel>();
+		MarketplaceEntity marketplace = this.marketplaceService.findById(id);
+		List<ProductEntity> products = this.productService.findAll();
+		List<ProductEntity> productsDelete = new ArrayList<ProductEntity>();
 		
-		for (ProductModel product : products) {
+		for (ProductEntity product : products) {
 			if (product.getMarketplace().getId() == id) {
 				productsDelete.add(product);
 			}
 		}
 		
-		for (ProductModel product : productsDelete) {
+		for (ProductEntity product : productsDelete) {
 			this.productService.delete(product.getId());
 		}
 		

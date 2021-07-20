@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 import com.sun.istack.NotNull;
 
 @Entity
-public class AdressModel {
+public class AdressEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,11 +28,11 @@ public class AdressModel {
 	private String city;
 	
 	@Deprecated
-	public AdressModel() {
+	public AdressEntity() {
 		super();
 	}
 
-	public AdressModel(@NotBlank(message = "Street of adress needed of repassed") String street,
+	public AdressEntity(@NotBlank(message = "Street of adress needed of repassed") String street,
 			@NotNull() long number,
 			@NotBlank(message = "Neighborhood of adress needed of repassed") String neighborhood,
 			@NotBlank(message = "City of adress needed of repassed") String city) {
