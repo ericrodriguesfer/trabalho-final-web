@@ -84,7 +84,7 @@ public class ProductController {
 	
 	@PutMapping(value = "/product/{id}")
 	@Transactional
-	public ResponseEntity<Object> updateProduct(@NotBlank @PathVariable long id, @RequestBody ProductUpdateRequestModel productUpdate) {
+	public ResponseEntity<Object> updateProduct(@NotBlank @PathVariable long id, @RequestBody @Valid ProductUpdateRequestModel productUpdate) {
 		ProductModel product = this.productService.findById(id);
 		
 		if (product == null) {

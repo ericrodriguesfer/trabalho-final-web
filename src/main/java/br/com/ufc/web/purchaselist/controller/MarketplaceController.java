@@ -101,7 +101,7 @@ public class  MarketplaceController {
 	
 	@PutMapping(value = "/marketplace/{id}")
 	@Transactional
-	public ResponseEntity<Object> updateMarketplace(@NotBlank @PathVariable long id, @RequestBody MarketplaceUpdateRequestModel marketplaceUpdate) {
+	public ResponseEntity<Object> updateMarketplace(@NotBlank @PathVariable long id, @RequestBody @Valid MarketplaceUpdateRequestModel marketplaceUpdate) {
 		MarketplaceModel marketplace = this.marketplaceService.findById(id);
 		
 		if (marketplace == null) {
