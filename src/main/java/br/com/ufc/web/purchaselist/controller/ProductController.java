@@ -87,6 +87,10 @@ public class ProductController {
 	public ResponseEntity<Object> updateProduct(@NotBlank @PathVariable long id, @RequestBody ProductUpdateRequestModel productUpdate) {
 		ProductModel product = this.productService.findById(id);
 		
+		if (product == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found for update");
+		}
+		
 		product.setName(productUpdate.getName());
 		product.setDescription(productUpdate.getDescription());
 		product.setPrice(productUpdate.getPrice());

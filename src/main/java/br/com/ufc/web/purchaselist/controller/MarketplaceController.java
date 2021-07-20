@@ -104,6 +104,10 @@ public class  MarketplaceController {
 	public ResponseEntity<Object> updateMarketplace(@NotBlank @PathVariable long id, @RequestBody MarketplaceUpdateRequestModel marketplaceUpdate) {
 		MarketplaceModel marketplace = this.marketplaceService.findById(id);
 		
+		if (marketplace == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Marketplace not found for update");
+		}
+		
 		marketplace.setName(marketplaceUpdate.getName());
 		
 		MarketplaceModel marketplaceUpdated = this.marketplaceService.update(marketplace);
