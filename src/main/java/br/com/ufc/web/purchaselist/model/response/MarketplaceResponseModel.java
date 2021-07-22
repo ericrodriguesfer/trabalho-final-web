@@ -5,6 +5,7 @@ public class MarketplaceResponseModel {
 	private long id;
 	private String name;
 	private long quantityProducts;
+	private String initial;
 //	private UserSimplifiedResponseModel user;
 	private AdressResponseModel adress;
 	
@@ -13,11 +14,12 @@ public class MarketplaceResponseModel {
 	}
 
 	public MarketplaceResponseModel(long id, String name, long quantityProducts,
-			AdressResponseModel adress) {
+			String initial, AdressResponseModel adress) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.quantityProducts = quantityProducts;
+		this.initial = initial;
 //		this.user = user;
 		this.adress = adress;
 	}
@@ -37,6 +39,10 @@ public class MarketplaceResponseModel {
 //	public UserSimplifiedResponseModel getUser() {
 //		return user;
 //	}
+	
+	public String getInitial() {
+		return initial;
+	}
 
 	public AdressResponseModel getAdress() {
 		return adress;
@@ -45,7 +51,7 @@ public class MarketplaceResponseModel {
 	@Override
 	public String toString() {
 		return "MarketplaceResponseModel [id=" + id + ", name=" + name + ", quantityProducts=" + quantityProducts
-				+ ", adress=" + adress + "]";
+				+ ", initial=" + initial + ", adress=" + adress + "]";
 	}
 	
 }

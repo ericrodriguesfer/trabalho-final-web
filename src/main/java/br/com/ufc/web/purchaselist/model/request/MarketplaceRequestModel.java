@@ -13,6 +13,9 @@ public class MarketplaceRequestModel {
 	@NotBlank(message = "Name needed of repassed")
 	private String name;
 	
+	@NotBlank(message = "Name needed of repassed")
+	private String initial;
+	
 //	@NotNull()
 //	private long idUser;
 	
@@ -25,10 +28,11 @@ public class MarketplaceRequestModel {
 	}
 
 	public MarketplaceRequestModel(@NotBlank(message = "Name needed of repassed") String name,
-			long idAdress) {
+			@NotBlank(message = "Initial needed of repassed") String initial, long idAdress) {
 		super();
 		this.name = name;
 //		this.idUser = idUser;
+		this.initial = initial;
 		this.idAdress = idAdress;
 	}
 
@@ -39,18 +43,22 @@ public class MarketplaceRequestModel {
 //	public long getIdUser() {
 //		return idUser;
 //	}
+	
+	public String getInitial() {
+		return initial;
+	}
 
 	public long getIdAdress() {
 		return idAdress;
 	}
-	
+
 	public MarketplaceEntity toModel(AdressEntity adress) {
-		return new MarketplaceEntity(this.getName(), adress);
+		return new MarketplaceEntity(this.getName(), this.getInitial(), adress);
 	}
 
 	@Override
 	public String toString() {
-		return "MarketplaceRequestModel [name=" + name + ", idAdress=" + idAdress + "]";
+		return "MarketplaceRequestModel [name=" + name + ", initial=" + initial + ", idAdress=" + idAdress + "]";
 	}
 			
 }

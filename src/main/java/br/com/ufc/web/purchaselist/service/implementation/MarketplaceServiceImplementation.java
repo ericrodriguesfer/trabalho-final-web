@@ -42,11 +42,23 @@ public class MarketplaceServiceImplementation implements MarketplaceService{
 		MarketplaceEntity marketplaceUpdate = this.findById(marketplace.getId());
 		
 		marketplaceUpdate.setName(marketplace.getName());
+		marketplaceUpdate.setInitial(marketplace.getInitial());
 		
 		this.marketplaceRepository.save(marketplaceUpdate);
 		
 		return marketplaceUpdate;
 	}
+	
+	@Override
+	public void addCountProduct(long id) {
+		MarketplaceEntity marketplace = this.findById(id);
+		
+		marketplace.setQuantityProducts(marketplace.getQuantityProducts() + 1);
+		
+		this.marketplaceRepository.save(marketplace);
+	}
+	
+
 
 	@Override
 	public boolean delete(long id) {

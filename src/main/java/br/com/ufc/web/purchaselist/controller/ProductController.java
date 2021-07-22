@@ -45,10 +45,12 @@ public class ProductController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Marketplace this product is invalid");
 		}
 		
+		this.marketplaceService.addCountProduct(marketplace.getId());
+		
 		ProductEntity product = productRegister.toModel(marketplace);
 		this.productService.save(product);
 		
-		ProductResponseModel productResponse = new ProductResponseModel(product.getId(), product.getName(), product.getDescription(), product.getPrice(), new MarketplaceSimplifiedResponseModel(product.getMarketplace().getName()));
+		ProductResponseModel productResponse = new ProductResponseModel(product.getId(), product.getName(), product.getDescription(), product.getPrice(), new MarketplaceSimplifiedResponseModel(product.getMarketplace().getName(), product.getMarketplace().getInitial()));
 		
 		return ResponseEntity.status(HttpStatus.OK).body(productResponse);	
 	}
@@ -63,7 +65,7 @@ public class ProductController {
 		}
 		
 		for (ProductEntity product : products) {
-			productsResponse.add(new ProductResponseModel(product.getId(), product.getName(), product.getDescription(), product.getPrice(), new MarketplaceSimplifiedResponseModel(product.getMarketplace().getName())));
+			productsResponse.add(new ProductResponseModel(product.getId(), product.getName(), product.getDescription(), product.getPrice(), new MarketplaceSimplifiedResponseModel(product.getMarketplace().getName(), product.getMarketplace().getInitial())));
 		}
 		
 		return ResponseEntity.status(HttpStatus.OK).body(productsResponse);
@@ -77,7 +79,7 @@ public class ProductController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found by this id repassed");
 		}
 		
-		ProductResponseModel productResponse = new ProductResponseModel(product.getId(), product.getName(), product.getDescription(), product.getPrice(), new MarketplaceSimplifiedResponseModel(product.getMarketplace().getName()));
+		ProductResponseModel productResponse = new ProductResponseModel(product.getId(), product.getName(), product.getDescription(), product.getPrice(), new MarketplaceSimplifiedResponseModel(product.getMarketplace().getName(), product.getMarketplace().getInitial()));
 		
 		return ResponseEntity.status(HttpStatus.OK).body(productResponse);
 	}
@@ -96,7 +98,7 @@ public class ProductController {
 		product.setPrice(productUpdate.getPrice());
 		
 		ProductEntity productUpdated = this.productService.update(product);
-		ProductResponseModel productResponse = new ProductResponseModel(productUpdated.getId(), productUpdated.getName(), productUpdated.getDescription(), productUpdated.getPrice(), new MarketplaceSimplifiedResponseModel(productUpdated.getMarketplace().getName()));
+		ProductResponseModel productResponse = new ProductResponseModel(productUpdated.getId(), productUpdated.getName(), productUpdated.getDescription(), productUpdated.getPrice(), new MarketplaceSimplifiedResponseModel(productUpdated.getMarketplace().getName(), productUpdated.getMarketplace().getInitial()));
 		
 		return ResponseEntity.status(HttpStatus.OK).body(productResponse);
 	}
