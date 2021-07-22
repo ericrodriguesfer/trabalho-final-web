@@ -10,6 +10,7 @@ public interface MarketplaceService {
 	List<MarketplaceEntity> findAll();
 	MarketplaceEntity findById(long id);
 	MarketplaceEntity update(MarketplaceEntity marketplace);
+	void addCountProduct(long id);
 	boolean delete(long id);
 	
 }

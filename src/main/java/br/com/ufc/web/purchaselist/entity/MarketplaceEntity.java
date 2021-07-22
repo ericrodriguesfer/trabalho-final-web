@@ -22,6 +22,9 @@ public class MarketplaceEntity {
 
 	@NotNull
 	private long quantityProducts;
+	
+	@NotBlank(message = "Initial needed of repassed")
+	private String initial;
 
 //	@NotNull
 //	@ManyToOne
@@ -36,11 +39,12 @@ public class MarketplaceEntity {
 		super();
 	}
 
-	public MarketplaceEntity(@NotBlank(message = "Name needed of repassed") String name, AdressEntity adress) {
+	public MarketplaceEntity(@NotBlank(message = "Name needed of repassed") String name, @NotBlank(message = "Initial needed of repassed") String initial, AdressEntity adress) {
 		super();
 		this.name = name;
 		this.quantityProducts = 0;
 //		this.user = user;
+		this.initial = initial;
 		this.adress = adress;
 	}
 
@@ -60,6 +64,10 @@ public class MarketplaceEntity {
 //		return user;
 //	}
 
+	public String getInitial() {
+		return initial;
+	}
+	
 	public AdressEntity getAdress() {
 		return adress;
 	}
@@ -68,9 +76,18 @@ public class MarketplaceEntity {
 		this.name = name;
 	}
 
+	public void setInitial(String initial) {
+		this.initial = initial;
+	}
+	
+	public void setQuantityProducts(long quantityProducts) {
+		this.quantityProducts = quantityProducts;
+	}
+
 	@Override
 	public String toString() {
-		return "Marketplace [id=" + id + ", name=" + name + ", quantityProducts=" + quantityProducts + ", adress=" + adress + "]";
+		return "MarketplaceEntity [id=" + id + ", name=" + name + ", quantityProducts=" + quantityProducts
+				+ ", initial=" + initial + ", adress=" + adress + "]";
 	}
 
 }

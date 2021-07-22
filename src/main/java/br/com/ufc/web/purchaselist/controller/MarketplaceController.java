@@ -65,7 +65,7 @@ public class  MarketplaceController {
 		MarketplaceEntity marketplace = marketplaceRegister.toModel(adress);
 		this.marketplaceService.save(marketplace);
 		
-		MarketplaceResponseModel marketplaceResponse = new MarketplaceResponseModel(marketplace.getId(), marketplace.getName(), marketplace.getQuantityProducts(), new AdressResponseModel(adress.getId(), adress.getStreet(), adress.getNumber(), adress.getNeighborhood(), adress.getCity()));
+		MarketplaceResponseModel marketplaceResponse = new MarketplaceResponseModel(marketplace.getId(), marketplace.getName(), marketplace.getQuantityProducts(), marketplace.getInitial(), new AdressResponseModel(adress.getId(), adress.getStreet(), adress.getNumber(), adress.getNeighborhood(), adress.getCity()));
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(marketplaceResponse);
 	}	
@@ -80,7 +80,7 @@ public class  MarketplaceController {
 		}
 		
 		for (MarketplaceEntity marketplace : marketplaces) {
-			marketplacesResponse.add(new MarketplaceResponseModel(marketplace.getId(), marketplace.getName(), marketplace.getQuantityProducts(), new AdressResponseModel(marketplace.getAdress().getId(), marketplace.getAdress().getStreet(), marketplace.getAdress().getNumber(), marketplace.getAdress().getNeighborhood(), marketplace.getAdress().getCity())));
+			marketplacesResponse.add(new MarketplaceResponseModel(marketplace.getId(), marketplace.getName(), marketplace.getQuantityProducts(), marketplace.getInitial(), new AdressResponseModel(marketplace.getAdress().getId(), marketplace.getAdress().getStreet(), marketplace.getAdress().getNumber(), marketplace.getAdress().getNeighborhood(), marketplace.getAdress().getCity())));
 		}
 		
 		return ResponseEntity.status(HttpStatus.OK).body(marketplacesResponse);
@@ -94,7 +94,7 @@ public class  MarketplaceController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Marketplace not found by this id repassed");
 		}
 		
-		MarketplaceResponseModel marketplaceResponse = new MarketplaceResponseModel(marketplace.getId(), marketplace.getName(), marketplace.getQuantityProducts(), new AdressResponseModel(marketplace.getAdress().getId(), marketplace.getAdress().getStreet(), marketplace.getAdress().getNumber(), marketplace.getAdress().getNeighborhood(), marketplace.getAdress().getCity()));
+		MarketplaceResponseModel marketplaceResponse = new MarketplaceResponseModel(marketplace.getId(), marketplace.getName(), marketplace.getQuantityProducts(), marketplace.getInitial(), new AdressResponseModel(marketplace.getAdress().getId(), marketplace.getAdress().getStreet(), marketplace.getAdress().getNumber(), marketplace.getAdress().getNeighborhood(), marketplace.getAdress().getCity()));
 		
 		return ResponseEntity.status(HttpStatus.OK).body(marketplaceResponse);
 	}
@@ -111,7 +111,7 @@ public class  MarketplaceController {
 		marketplace.setName(marketplaceUpdate.getName());
 		
 		MarketplaceEntity marketplaceUpdated = this.marketplaceService.update(marketplace);
-		MarketplaceResponseModel marketplaceResponse = new MarketplaceResponseModel(marketplaceUpdated.getId(), marketplaceUpdated.getName(), marketplaceUpdated.getQuantityProducts(), new AdressResponseModel(marketplaceUpdated.getAdress().getId(), marketplaceUpdated.getAdress().getStreet(), marketplaceUpdated.getAdress().getNumber(), marketplaceUpdated.getAdress().getNeighborhood(), marketplaceUpdated.getAdress().getCity()));
+		MarketplaceResponseModel marketplaceResponse = new MarketplaceResponseModel(marketplaceUpdated.getId(), marketplaceUpdated.getName(), marketplaceUpdated.getQuantityProducts(), marketplace.getInitial(), new AdressResponseModel(marketplaceUpdated.getAdress().getId(), marketplaceUpdated.getAdress().getStreet(), marketplaceUpdated.getAdress().getNumber(), marketplaceUpdated.getAdress().getNeighborhood(), marketplaceUpdated.getAdress().getCity()));
 		
 		return ResponseEntity.status(HttpStatus.OK).body(marketplaceResponse);
 	}
